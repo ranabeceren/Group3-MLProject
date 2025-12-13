@@ -12,7 +12,7 @@ def make_patches(img, mask, patch_size=128):
         patches_img (np.ndarray): (number of patches, C, patch_size, patch_size)
         patches_mask (np.ndarray): (number of patches, patch_size, patch_size)
     """ 
-    H,W = mask.shape
+    H, W = mask.shape
     patches_img = []
     patches_mask = []
 

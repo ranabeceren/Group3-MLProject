@@ -3,7 +3,6 @@ import numpy as np
 def train_val_test_split(images,
                          masks,
                          train=0.7,
-                         test=0.2
                          val=0.1,
                          seed=42):
     

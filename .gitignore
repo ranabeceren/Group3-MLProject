@@ -1,1 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (DO NOT COMMIT)
+deep_learning/data_patches/
+data/
+datasets/
+
+# Model outputs
+*.pth
+*.pt
+*.ckpt
+
+# Environments
+.env
+.venv
+venv/
+ml-env/
+
+# OS
 .DS_Store
+

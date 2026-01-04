@@ -1,8 +1,8 @@
 import numpy as np
 
-def patch_selection(patches_mask, patches_img, threshold=0.5):
+def patch_selection(patches_mask, patches_img, threshold=0.4):
     """
-    Eliminates the patches with more than 50% non-building percentage.
+    Removes patches with minimum building coverage.
     """
     
     # Iniciate an empty list to track the indicies to delete patch and mask
@@ -19,3 +19,5 @@ def patch_selection(patches_mask, patches_img, threshold=0.5):
     patches_img = np.delete(patches_img, indices, axis=0)
 
     return patches_mask, patches_img
+
+

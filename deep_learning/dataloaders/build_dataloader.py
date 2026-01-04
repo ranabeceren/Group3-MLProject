@@ -1,6 +1,6 @@
 import torch
 from torch.utils.data import DataLoader
-from datasets.building_dataset import BuildingDataset
+from datasets.build_dataset import BuildDataset
 Mode = "Test"
 
 if Mode == "Test":

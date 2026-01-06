@@ -5,7 +5,7 @@ def make_patches(img, mask, patch_size=128):
     Cuts a large image and mask into smaller aligned patches.
 
     Args:
-        img (np.ndarray): (C, H, w)
+        img (np.ndarray): (C, H, W)
         mask (np.ndarray): (H, W)
         patch_size (int): size of square patches
     Returns:

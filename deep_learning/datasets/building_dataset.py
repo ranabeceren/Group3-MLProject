@@ -17,7 +17,7 @@ class BuildingDataset(Dataset):
             masks (np.ndarray): (N, H, W)
             transforms (optional): augmentations 
         """
-        
+
         self.images = images
         self.masks = masks
         self.transforms = transforms

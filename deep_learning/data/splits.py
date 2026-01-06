@@ -3,7 +3,7 @@ import numpy as np
 def train_val_test_split(images,
                          masks,
                          train=0.7,
-                         test=0.2
+                         test=0.2,
                          val=0.1,
                          seed=42):
     
@@ -17,7 +17,7 @@ def train_val_test_split(images,
 
     train_idx = indicies[:num_train]
     test_idx = indicies[num_train:num_train+num_val]
-    val_idx = indicies[num_val:]
+    val_idx = indicies[:num_train]
 
     return (images[train_idx], masks[train_idx],
             images[val_idx], masks[val_idx],

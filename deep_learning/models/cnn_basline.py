@@ -63,3 +63,4 @@ model = BaseLineCNN(in_channels=3).to(device)
 
 output = model(X, debug=True)
 print("Output shape:", output.shape)
+

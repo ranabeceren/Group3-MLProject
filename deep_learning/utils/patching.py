@@ -16,8 +16,8 @@ def make_patches(img, mask, patch_size=128):
     patches_img = []
     patches_mask = []
 
-    for i in range(0, H, patch_size):
-        for j in range(0, W, patch_size):
+    for i in range(0, H - patch_size + 1, patch_size):
+        for j in range(0, W - patch_size + 1, patch_size):
 
             patch_img = img[:, i:i+patch_size, j:j+patch_size]
             patch_mask = mask[i:i+patch_size, j:j+patch_size]

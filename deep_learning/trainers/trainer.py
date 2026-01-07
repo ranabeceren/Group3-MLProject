@@ -3,7 +3,7 @@ from tqdm.auto import tqdm
 import torch.nn.functional as F
 
 # import from metrics (doesnt exist yet)
-from utils import dice, iou, loss_function
+from utils import dice, iou
 
 def train_step(model, dataloader, loss_fn, optimizer, device):
     model.train() # change to train mode

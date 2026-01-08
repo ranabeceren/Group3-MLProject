@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-class BaseLineCNNModelV2(nn.Module):
+class BaseLineCNNModelV3(nn.Module):
     def __init__(
         self,
         input_shape: int,
@@ -49,8 +49,28 @@ class BaseLineCNNModelV2(nn.Module):
                 nn.MaxPool2d(kernel_size=2)    
         )
 
+        self.conv_block_3 = nn.Sequential(
+            nn.Conv2d(
+                in_channels=hidden_units,
+                out_channels=hidden_units,
+                kernel_size=3,
+                stride=1,
+                padding=1
+                ),
+                nn.ReLU(),
+                nn.Conv2d(
+                    in_channels=hidden_units,
+                    out_channels=hidden_units,
+                    kernel_size=3,
+                    stride=1,
+                    padding=1
+                ),
+                nn.ReLU(),
+                nn.MaxPool2d(kernel_size=2)    
+        )
+
         self.upsample = nn.Upsample(
-            scale_factor=4,   # 32 → 128
+            scale_factor=8,   # 32 → 128 (you upscale for the data to fit in the bcewithlogits loss imput shape)
             mode="bilinear",
             align_corners=False
         )
@@ -62,14 +82,34 @@ class BaseLineCNNModelV2(nn.Module):
             )
         
     def forward(self, x):
-        x = self.conv_block_1(x)
+        input_size = x.shape[-2:]
+        x1 = self.conv_block_1(x)
         # print(f"Output shape of conv_block_1: {x.shape}")
 
-        x = self.conv_block_2(x)
+        x2 = self.conv_block_2(x1)
         # print(f"Output shape of conv_block_2: {x.shape}")
 
-        x = self.upsample(x)
+        x3 = self.conv_block_3(x2)
+        """
+        x = self.upsample(x3)
         # print(f"Output shape of unsample: {x.shape}")
+        """
+        x = torch.nn.functional.interpolate(
+            x3,
+            size=x1.shape[-2:],   # match x1 exactly
+            mode="bilinear",
+            align_corners=False
+            )
+
+        x = x + x1 # to skip connection
+
+        x = torch.nn.functional.interpolate(
+            x,
+            size=input_size,
+            mode="bilinear",
+            align_corners=False
+            )
+
 
         x = self.classifier(x)
         # print(f"Output shape of classifier: {x.shape}")

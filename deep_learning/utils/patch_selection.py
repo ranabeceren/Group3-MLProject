@@ -1,6 +1,6 @@
 import numpy as np
 
-def patch_selection(patches_mask, patches_img, threshold=0.4):
+def patch_selection(patches_mask, patches_img, threshold=0.6):
     """
     Removes patches with minimum building coverage.
     """
@@ -19,5 +19,3 @@ def patch_selection(patches_mask, patches_img, threshold=0.4):
     patches_img = np.delete(patches_img, indices, axis=0)
 
     return patches_mask, patches_img
-
-

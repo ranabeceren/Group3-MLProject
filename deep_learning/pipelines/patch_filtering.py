@@ -2,7 +2,7 @@ import os
 import numpy as np
 from utils.patch_selection import patch_selection
 
-def patch_filtering(data_dir="data_patches", threshold=0.8):
+def patch_filtering(data_dir="data_patches", threshold=0.6):
 
     img_patches = []
     mask_patches = []

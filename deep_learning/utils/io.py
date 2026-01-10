@@ -11,8 +11,8 @@ def load_sentinel_image(path):
         np.ndarray: float32 array of shape (C, H, W)
     """
     with rasterio.open(path) as src:
-        img = src.read()
-        img = img.astype(np.float32) 
+        img = src.read().astype(np.float32)
+    img = img[:3, :, :]
     return img
 
     

@@ -55,12 +55,3 @@ class BaseLineCNN(nn.Module): # almost everything in PyTorch inherits from nn.Mo
 if __name__ == '__main__':
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("Using device:", device)
-
-
-### Dummy Data
-X = torch.randn(10, 3, 64, 64).to(device)
-model = BaseLineCNN(in_channels=3).to(device)
-
-output = model(X, debug=True)
-print("Output shape:", output.shape)
-

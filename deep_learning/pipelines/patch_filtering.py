@@ -1,6 +1,8 @@
 import os
 import numpy as np
-from utils.patch_selection import patch_selection
+from deep_learning.utils.patch_selection import patch_selection
+
+#uses patch_selection to delete the patches we don't want
 
 def patch_filtering(data_dir="data_patches", threshold=0.6):
 

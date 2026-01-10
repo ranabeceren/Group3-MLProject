@@ -1,7 +1,8 @@
 import torch
 from tqdm.auto import tqdm
-from dataloaders.build_dataloader import create_dataloaders
 import torch.nn.functional as F
+
+# only takes care of the training
 
 # import from metrics (doesnt exist yet)
 #from utils import dice, iou, loss_function

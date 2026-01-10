@@ -1,9 +1,11 @@
 import torch
 import numpy as np
-from datasets.build_dataset import BuildDataset
+from deep_learning.datasets.building_dataset import BuildingDataset
 from torch.utils.data import DataLoader
-from utils.splits import train_test_val_split
-from pipelines.patch_filtering import patch_filtering
+from deep_learning.utils.splits import train_test_val_split
+from deep_learning.pipelines.patch_filtering import patch_filtering
+
+# splits the data into the sets and creates the dataset and dataloader which are then given to the trainer
 
 def data_prep(img_patches, mask_patches, batch_size=16):
 
@@ -18,9 +20,9 @@ def data_prep(img_patches, mask_patches, batch_size=16):
         seed=42
     )
     # Build dataset
-    train_dataset = BuildDataset(images=train_imgs, masks=train_masks)
-    test_dataset = BuildDataset(images=test_imgs, masks=test_masks)
-    val_dataset = BuildDataset(images=val_imgs, masks=val_masks)
+    train_dataset = BuildingDataset(images=train_imgs, masks=train_masks)
+    test_dataset = BuildingDataset(images=test_imgs, masks=test_masks)
+    val_dataset = BuildingDataset(images=val_imgs, masks=val_masks)
 
     # Build dataloader
     train_loader = DataLoader(

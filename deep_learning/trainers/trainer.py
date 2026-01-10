@@ -1,13 +1,14 @@
 import torch
 from tqdm.auto import tqdm
+from dataloaders.build_dataloader import create_dataloaders
 import torch.nn.functional as F
 
 # import from metrics (doesnt exist yet)
-from utils import dice, iou
+#from utils import dice, iou, loss_function
 
 def train_step(model, dataloader, loss_fn, optimizer, device):
     model.train() # change to train mode
-    epoch_loss, epoch_dice, epoch_iou = 0.0, 0.0, 0.0
+    epoch_loss = 0.0
 
     # loop through all the batches of the dataloader
     for images, masks in tqdm(dataloader, desc="Training", leave=False):
@@ -27,24 +28,15 @@ def train_step(model, dataloader, loss_fn, optimizer, device):
 
         # accumulates loss and metrics
         epoch_loss += loss.item()
-        epoch_dice += dice(preds, masks)
-        epoch_iou += iou(preds, masks)
 
-    # average metrics
-    n_batches = len(dataloader)
-
-    return ( # calculate the average of all batches
-        epoch_loss / n_batches,
-        epoch_dice / n_batches,
-        epoch_iou / n_batches
-    )
+    return epoch_loss / len(dataloader)
 
 def eval_step(model, dataloader, loss_fn, device):
     model.eval() # switches model into evaluation mode
-    epoch_loss, epoch_dice, epoch_iou = 0.0, 0.0, 0.0
+    epoch_loss = 0.0
 
     with torch.no_grad(): # prevents gradient-calculation to save space
-        for images, masks in dataloader:
+        for images, masks in tqdm(dataloader, desc="validation", leave=False):
             images, masks = images.to(device), masks.to(device)
 
             preds = model(images)
@@ -55,17 +47,11 @@ def eval_step(model, dataloader, loss_fn, device):
             loss = loss_fn(preds, masks)
 
             epoch_loss += loss.item()
-            epoch_dice += dice(preds, masks)
-            epoch_iou += iou(preds, masks)
-    n_batches = len(dataloader)
 
-    return (
-        epoch_loss / n_batches,
-        epoch_dice / n_batches,
-        epoch_iou / n_batches
-    )
+    return epoch_loss / len(dataloader)
 
-def train_model(model, train_loader, eval_loader, loss_fn, optimizer, device, epochs):
+
+def train_model(model, train_loader, val_loader, loss_fn, optimizer, device, epochs):
 
     torch.manual_seed(42) # seed for reproducability
     if device.type == 'cuda':
@@ -73,32 +59,23 @@ def train_model(model, train_loader, eval_loader, loss_fn, optimizer, device, ep
 
     model.to(device)  # model to CPU/GPU
 
-    best_iou = 0.0
+    best_loss = float('inf')
 
     for epoch in range(epochs):
         print(f"\n----- Epoch {epoch+1}/epochs -----")
 
         # carries out the training and evaluation steps
-        train_loss, train_dice, train_iou = train_step(
+        train_loss = train_step(
             model, train_loader, loss_fn, optimizer, device
         )
 
-        eval_loss, eval_dice, eval_iou = eval_step(
-            model, eval_loader, loss_fn, device
-        )
+        train_loss = train_step(model, train_loader, loss_fn, optimizer, device)
+        val_loss = eval_step(model, val_loader, loss_fn, device)
 
-        print(
-            f"Train Loss: {train_loss: .4f} | "
-            f"Train Dice: {train_dice: .4f} | IoU: {train_iou: .4f}"
-        )
-
-        print(
-            f"Eval Loss: {eval_loss: .4f} | "
-            f"Eval Dice: {eval_dice: .4f} | IoU: {eval_iou: .4f}"
-        )
+        print(f"Train Loss: {train_loss: .4f} | Eval Loss: {val_loss: .4f}")
 
         # automatically saves the model with the best IoU
-        if eval_iou > best_iou:
-            best_iou = eval_iou
-            torch.save(model.state_dict(), f"best_model.pth")
-            print("-> Best model saved!")
+       # if eval_iou > best_iou:
+        #    best_iou = eval_iou
+         #   torch.save(model.state_dict(), f"best_model.pth")
+         #   print("-> Best model saved!")

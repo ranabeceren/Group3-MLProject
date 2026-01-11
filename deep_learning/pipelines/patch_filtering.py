@@ -4,7 +4,7 @@ from deep_learning.utils.patch_selection import patch_selection
 
 #uses patch_selection to delete the patches we don't want
 
-def patch_filtering(data_dir="data_patches", threshold=0.01):
+def patch_filtering(data_dir="data_patches", threshold=0.1):
     print("DEBUG: patch_filtering threshold: ", threshold)
 
     img_patches = []

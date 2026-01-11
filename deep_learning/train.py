@@ -18,12 +18,12 @@ Settings;
 RAW_DIR = "data/raw"
 PROCESSED_DIR = "data/processed"
 PATCH_DIR = "data/patches"
-PATCH_SIZE = 64
+PATCH_SIZE = 128
 
 BATCH_SIZE = 16
-EPOCHS = 100
+EPOCHS = 50
 LR = 0.001
-PATCH_THRESHOLD = 0.01
+PATCH_THRESHOLD = 0.1
 
 # Set device
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -32,11 +32,7 @@ print("Using device:", device)
 '''
 Patch extraction
 '''
-CITIES = [
-    "amsterdam", "barcelona", "berlin", "brisbane",
-    "cairo", "darmstadt", "lisbon", "madrid",
-    "melbourne", "mexico_city", "porto"
-]
+CITIES = ["amsterdam", "barcelona", "berlin"]
 
 print("Processing all cities and extracting patches")
 for city in CITIES:

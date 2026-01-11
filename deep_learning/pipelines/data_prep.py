@@ -7,10 +7,10 @@ from deep_learning.pipelines.patch_filtering import patch_filtering
 
 # splits the data into the sets and creates the dataset and dataloader which are then given to the trainer
 
-def data_prep(img_patches, mask_patches, batch_size=16):
+def data_prep(img_patches, mask_patches, batch_size=16, threshold=0.01):
 
     # Get the data resulting from patch_filtering
-    img_patches, mask_patches = patch_filtering(data_dir="data_patches", threshold=0.75)
+    img_patches, mask_patches = patch_filtering(data_dir="data_patches", threshold=threshold)
     # Split into train, test, validation sets
     train_imgs, train_masks, test_imgs, test_masks, val_imgs, val_masks = train_test_val_split(
         images=img_patches,

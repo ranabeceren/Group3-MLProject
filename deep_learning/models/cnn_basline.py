@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn # contains all the NN Modules such as ReLU, Sequential...
 
 class BaseLineCNN(nn.Module): # almost everything in PyTorch inherits from nn.Module
-    def __init__(self, in_channels=3, features=[32, 64, 128, 256, 512]):
+    def __init__(self, in_channels=3, features=[32, 64, 128]):
         # 3 input canals for RGB picture
         # list of the canals for the Conv-Layer
         super().__init__() # Constructor
@@ -15,7 +15,7 @@ class BaseLineCNN(nn.Module): # almost everything in PyTorch inherits from nn.Mo
             layers.append(nn.Conv2d(in_channels=prev_channels, out_channels=feature, kernel_size=3, padding=1))
             layers.append(nn.BatchNorm2d(feature)) #for more stable training
             layers.append(nn.ReLU(inplace=True))
-            layers.append(nn.MaxPool2d(kernel_size=2, stride=2))
+            #layers.append(nn.MaxPool2d(kernel_size=2, stride=2))
             prev_channels = feature # Input for the next layer
 
         # last layer returns just 1 canal (for the mask)

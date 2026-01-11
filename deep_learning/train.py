@@ -18,7 +18,7 @@ Settings;
 RAW_DIR = "data/raw"
 PROCESSED_DIR = "data/processed"
 PATCH_DIR = "data/patches"
-PATCH_SIZE = 128
+PATCH_SIZE = 64
 
 BATCH_SIZE = 16
 EPOCHS = 50
@@ -61,9 +61,8 @@ print("Creating dataloaders")
 train_loader, test_loader, val_loader = data_prep(
     img_patches=img_patches,
     mask_patches=mask_patches,
-    batch_size=BATCH_SIZE,
-    threshold=PATCH_THRESHOLD
-    )
+    batch_size=BATCH_SIZE
+)
 
 print(f"Tain/Val/Test sizes: {len(train_loader.dataset)}, {len(test_loader.dataset)}, {len(val_loader.dataset)}")
 

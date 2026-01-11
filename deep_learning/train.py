@@ -23,7 +23,7 @@ PATCH_SIZE = 64
 BATCH_SIZE = 16
 EPOCHS = 100
 LR = 0.001
-PATCH_THRESHOLD = 0.75
+PATCH_THRESHOLD = 0.01
 
 # Set device
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -53,7 +53,8 @@ Patch filtering
 '''
 
 print(f"Filtering patches with threshold: {PATCH_THRESHOLD}")
-img_patches,mask_patches = patch_filtering()
+img_patches,mask_patches = patch_filtering(data_dir="data_patches",
+                                           threshold=PATCH_THRESHOLD)
 
 #print(f"{len(img_patches)} patches remaining after filtering")
 

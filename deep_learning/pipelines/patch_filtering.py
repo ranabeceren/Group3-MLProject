@@ -4,7 +4,8 @@ from deep_learning.utils.patch_selection import patch_selection
 
 #uses patch_selection to delete the patches we don't want
 
-def patch_filtering(data_dir="data_patches", threshold=0.6):
+def patch_filtering(data_dir="data_patches", threshold=0.01):
+    print("DEBUG: patch_filtering threshold: ", threshold)
 
     img_patches = []
     mask_patches = []
@@ -14,7 +15,7 @@ def patch_filtering(data_dir="data_patches", threshold=0.6):
         if not os.path.isdir(city_path):
             continue
 
-        imgs = np.load(f"{city_path}/images.npy")
+        imgs = np.load (f"{city_path}/images.npy")
         masks = np.load(f"{city_path}/masks.npy")
 
         # Print out number of patches before selection

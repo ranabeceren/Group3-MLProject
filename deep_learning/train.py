@@ -3,6 +3,7 @@ import torch
 import numpy as np
 from torch import nn
 from torch.optim import Adam
+import torchvision.transforms as T
 
 # import modules
 from .models.cnn_basline import BaseLineCNN
@@ -32,7 +33,8 @@ print("Using device:", device)
 '''
 Patch extraction
 '''
-CITIES = ["amsterdam", "barcelona", "berlin"]
+CITIES = ["amsterdam", "barcelona", "berlin", "brisbane",
+    "cairo", "darmstadt"]
 
 print("Processing all cities and extracting patches")
 for city in CITIES:
@@ -53,6 +55,23 @@ img_patches,mask_patches = patch_filtering(data_dir="data_patches",
                                            threshold=PATCH_THRESHOLD)
 
 #print(f"{len(img_patches)} patches remaining after filtering")
+'''
+Data transformation
+'''
+train_transform = T.Compose([
+    T.ToPILImage(),
+    T.RandomHorizontalFlip(),
+    T.RandomVerticalFlip(),
+    T.RandomRotation(90),
+    T.ColorJitter(brightness=0.2, contrast=0.2),
+    T.ToTensor()
+])
+
+val_transform = T.Compose([
+    T.ToPILImage(),
+    T.ToTensor()
+])
+
 
 '''
 Data preparation
@@ -61,7 +80,9 @@ print("Creating dataloaders")
 train_loader, test_loader, val_loader = data_prep(
     img_patches=img_patches,
     mask_patches=mask_patches,
-    batch_size=BATCH_SIZE
+    batch_size=BATCH_SIZE,
+    train_transform=train_transform,
+    val_transform=val_transform
 )
 
 print(f"Tain/Val/Test sizes: {len(train_loader.dataset)}, {len(test_loader.dataset)}, {len(val_loader.dataset)}")

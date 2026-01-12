@@ -8,7 +8,7 @@ from deep_learning.pipelines.patch_filtering import patch_filtering
 
 # splits the data into the sets and creates the dataset and dataloader which are then given to the trainer
 
-def data_prep(img_patches, mask_patches, batch_size=16, train_transform=None, val_transform=None):
+def data_prep(img_patches, mask_patches, batch_size=16, train_transform=None):
 
     # Get the data resulting from patch_filtering
     #img_patches, mask_patches = patch_filtering(data_dir="data_patches", threshold=threshold)
@@ -22,20 +22,9 @@ def data_prep(img_patches, mask_patches, batch_size=16, train_transform=None, va
         seed=42
     )
     # Build dataset
-    train_dataset = BuildingDataset(
-        images=train_imgs,
-        masks=train_masks,
-        transform=train_transform)
-
-    test_dataset = BuildingDataset(
-        images=test_imgs,
-        masks=test_masks,
-        transform=val_transform)
-
-    val_dataset = BuildingDataset(
-        images=val_imgs,
-        masks=val_masks,
-        transform=val_transform)
+    train_dataset = BuildingDataset(images=train_imgs, masks=train_masks, transform=train_transform)
+    test_dataset = BuildingDataset(images=test_imgs, masks=test_masks, transform=None)
+    val_dataset = BuildingDataset(images=val_imgs, masks=val_masks, transform=None)
 
     # Build dataloader
     train_loader = DataLoader(

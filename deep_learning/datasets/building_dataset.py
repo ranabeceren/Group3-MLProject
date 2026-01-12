@@ -24,16 +24,14 @@ class BuildingDataset(Dataset):
     
     def __getitem__(self, idx):
 
-        X = self.img_patches[idx] # keeping as numpy array for now
-        y = self.mask_patches[idx]
-
-        #X = torch.tensor(self.img_patches[idx], dtype=torch.float32)
-        #y = torch.tensor(self.mask_patches[idx], dtype=torch.float32)
+        X = torch.tensor(self.img_patches[idx], dtype=torch.float32)
+        y = torch.tensor(self.mask_patches[idx], dtype=torch.float32)
 
         # transform image (aguments and ToTensor)
         if self.transform:
             X  = self.transform(X)
 
-        y = torch.tensor(y, dtype=torch.float32).unsqueeze(0)
+        if y.ndim == 2:
+            y = y.unsqueeze(0)
 
         return X, y

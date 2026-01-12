@@ -59,19 +59,11 @@ img_patches,mask_patches = patch_filtering(data_dir="data_patches",
 Data transformation
 '''
 train_transform = T.Compose([
-    T.ToPILImage(),
-    T.RandomHorizontalFlip(),
-    T.RandomVerticalFlip(),
-    T.RandomRotation(90),
-    T.ColorJitter(brightness=0.2, contrast=0.2),
-    T.ToTensor()
+    T.RandomHorizontalFlip(p=0.5),
+    T.RandomVerticalFlip(p=0.5)
 ])
 
-val_transform = T.Compose([
-    T.ToPILImage(),
-    T.ToTensor()
-])
-
+val_transform = None
 
 '''
 Data preparation
@@ -81,8 +73,7 @@ train_loader, test_loader, val_loader = data_prep(
     img_patches=img_patches,
     mask_patches=mask_patches,
     batch_size=BATCH_SIZE,
-    train_transform=train_transform,
-    val_transform=val_transform
+    train_transform=train_transform
 )
 
 print(f"Tain/Val/Test sizes: {len(train_loader.dataset)}, {len(test_loader.dataset)}, {len(val_loader.dataset)}")

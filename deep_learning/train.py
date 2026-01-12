@@ -23,7 +23,7 @@ PATCH_SIZE = 64
 BATCH_SIZE = 16
 EPOCHS = 50
 LR = 0.001
-PATCH_THRESHOLD = 0.1
+PATCH_THRESHOLD = 0.6
 
 # Set device
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

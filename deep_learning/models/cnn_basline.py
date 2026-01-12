@@ -15,7 +15,11 @@ class BaseLineCNN(nn.Module): # almost everything in PyTorch inherits from nn.Mo
             layers.append(nn.Conv2d(in_channels=prev_channels, out_channels=feature, kernel_size=3, padding=1))
             layers.append(nn.BatchNorm2d(feature)) #for more stable training
             layers.append(nn.ReLU(inplace=True))
-            #layers.append(nn.MaxPool2d(kernel_size=2, stride=2))
+
+            layers.append(nn.Conv2d(in_channels=feature, out_channels=feature, kernel_size=3, padding=1))
+            layers.append(nn.BatchNorm2d(feature))
+            layers.append(nn.ReLU(inplace=True))
+            
             prev_channels = feature # Input for the next layer
 
         # last layer returns just 1 canal (for the mask)

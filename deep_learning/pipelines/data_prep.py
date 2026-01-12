@@ -22,7 +22,7 @@ def data_prep(img_patches, mask_patches, batch_size=16, train_transform=None):
         seed=42
     )
     # Build dataset
-    train_dataset = BuildingDataset(images=train_imgs, masks=train_masks, transform=train_transform)
+    train_dataset = BuildingDataset(images=train_imgs, masks=train_masks, transform=train_transform) # applies transformations only on training data
     test_dataset = BuildingDataset(images=test_imgs, masks=test_masks, transform=None)
     val_dataset = BuildingDataset(images=val_imgs, masks=val_masks, transform=None)
 

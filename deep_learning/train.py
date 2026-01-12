@@ -22,8 +22,8 @@ PATCH_DIR = "data/patches"
 PATCH_SIZE = 64
 
 BATCH_SIZE = 16
-EPOCHS = 50
-LR = 0.001
+EPOCHS = 1000
+LR = 0.0005
 PATCH_THRESHOLD = 0.6
 
 # Set device
@@ -59,11 +59,11 @@ img_patches,mask_patches = patch_filtering(data_dir="data_patches",
 Data transformation
 '''
 train_transform = T.Compose([
-    T.RandomHorizontalFlip(p=0.5),
+    T.RandomHorizontalFlip(p=0.5), #rotations on the tensors
     T.RandomVerticalFlip(p=0.5)
 ])
 
-val_transform = None
+val_transform = None #in case we need it later
 
 '''
 Data preparation

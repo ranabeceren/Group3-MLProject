@@ -52,7 +52,7 @@ def eval_step(model, dataloader, loss_fn, device):
     return epoch_loss / len(dataloader)
 
 
-def train_model(model, train_loader, val_loader, loss_fn, optimizer, device, epochs):
+def train_model(model, train_loader, val_loader, loss_fn, optimizer, device, epochs, print_every=10):
 
     torch.manual_seed(42) # seed for reproducability
     if device.type == 'cuda':
@@ -63,17 +63,17 @@ def train_model(model, train_loader, val_loader, loss_fn, optimizer, device, epo
     best_loss = float('inf')
 
     for epoch in range(epochs):
-        print(f"\n----- Epoch {epoch+1}/epochs -----")
+        #print(f"\n----- Epoch {epoch+1}/epochs -----")
 
         # carries out the training and evaluation steps
-        train_loss = train_step(
-            model, train_loader, loss_fn, optimizer, device
-        )
-
         train_loss = train_step(model, train_loader, loss_fn, optimizer, device)
         val_loss = eval_step(model, val_loader, loss_fn, device)
 
-        print(f"Train Loss: {train_loss: .4f} | Eval Loss: {val_loss: .4f}")
+        if (epoch +1) % print_every == 0 or epoch == 0:
+            print(f"----- Epoch {epoch + 1}/{epochs} -----")
+            print(f"Train loss: {train_loss:.3f} | Eval Loss: {val_loss:.4f}")
+
+        #print(f"Train Loss: {train_loss: .4f} | Eval Loss: {val_loss: .4f}")
 
         # automatically saves the model with the best IoU
        # if eval_iou > best_iou:

@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+import torchvision.transforms as T
 from deep_learning.datasets.building_dataset import BuildingDataset
 from torch.utils.data import DataLoader
 from deep_learning.utils.splits import train_test_val_split
@@ -21,9 +22,23 @@ def data_prep(img_patches, mask_patches, batch_size=16, train_transform=None, va
         seed=42
     )
     # Build dataset
-    train_dataset = BuildingDataset(images=train_imgs, masks=train_masks, transform=train_transform)
-    test_dataset = BuildingDataset(images=test_imgs, masks=test_masks, transform=val_transform)
-    val_dataset = BuildingDataset(images=val_imgs, masks=val_masks, transform=val_transform)
+    train_dataset = BuildingDataset(
+        images=train_imgs,
+        masks=train_masks,
+        transform=train_transform,
+        mask_transform=T.ToTensor())
+
+    test_dataset = BuildingDataset(
+        images=test_imgs,
+        masks=test_masks,
+        transform=val_transform,
+        mask_transform=T.ToTensor())
+
+    val_dataset = BuildingDataset(
+        images=val_imgs,
+        masks=val_masks,
+        transform=val_transform,
+        mask_transform=T.ToTensor())
 
     # Build dataloader
     train_loader = DataLoader(

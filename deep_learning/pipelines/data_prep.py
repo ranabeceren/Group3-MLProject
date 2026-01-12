@@ -25,20 +25,17 @@ def data_prep(img_patches, mask_patches, batch_size=16, train_transform=None, va
     train_dataset = BuildingDataset(
         images=train_imgs,
         masks=train_masks,
-        transform=train_transform,
-        mask_transform=T.ToTensor())
+        transform=train_transform)
 
     test_dataset = BuildingDataset(
         images=test_imgs,
         masks=test_masks,
-        transform=val_transform,
-        mask_transform=T.ToTensor())
+        transform=val_transform)
 
     val_dataset = BuildingDataset(
         images=val_imgs,
         masks=val_masks,
-        transform=val_transform,
-        mask_transform=T.ToTensor())
+        transform=val_transform)
 
     # Build dataloader
     train_loader = DataLoader(

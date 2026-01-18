@@ -1,8 +1,8 @@
 import torch
 import numpy as np
-from datasets.building_dataset import BuildingDataset
+from deep_learning.datasets.building_dataset import BuildingDataset
 from torch.utils.data import DataLoader
-from utils.split import train_val_test_split
+from deep_learning.utils.split import train_val_test_split
 
 # splits the data into the sets and creates the dataset and dataloader which are then given to the trainer
 

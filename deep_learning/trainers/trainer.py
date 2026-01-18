@@ -4,8 +4,7 @@ import torch.nn.functional as F
 
 # only takes care of the training
 
-# import from metrics (doesnt exist yet)
-#from utils import dice, iou, loss_function
+# import from metrics
 
 def train_step(model, dataloader, loss_fn, optimizer, device):
     model.train() # change to train mode

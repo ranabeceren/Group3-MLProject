@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn # contains all the NN Modules such as ReLU, Sequential...
 
 class BaseLineCNN(nn.Module): # almost everything in PyTorch inherits from nn.Module
-    def __init__(self, in_channels=3, features=[32, 64, 128, 256]):
+    def __init__(self, in_channels=4, features=[32, 64, 128, 256]):
         # 3 input canals for RGB picture
         # list of the canals for the Conv-Layer
         super().__init__() # Constructor

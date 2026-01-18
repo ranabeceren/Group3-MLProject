@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from trainers.trainerV2 import train_step, test_step
-from metrics.train_metrics import compute_pos_weight, print_train_time 
+from deep_learning.trainers.trainerV2 import train_step, test_step
+from deep_learning.metrics.train_metrics import compute_pos_weight, print_train_time
 from torchmetrics.classification import BinaryAccuracy
 from timeit import default_timer as timer
 from tqdm.auto import tqdm
@@ -11,6 +11,7 @@ def training(
     train_loader,
     test_loader,
     val_loader,
+
     model,
     epochs, 
     learning_rate):
@@ -30,7 +31,7 @@ def training(
     mode="min",        # because we monitor val loss
     factor=0.99,        # lr = lr * 0.99
     patience=15,        # wait 15 epochs with no improvement
-    verbose=True
+    #verbose=True
     )
     # Randomize for reproducability
     RANDOM_SEED = 42

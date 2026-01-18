@@ -1,4 +1,5 @@
 import os
+import sys
 import torch
 import numpy as np
 from torch import nn
@@ -6,11 +7,11 @@ from torch.optim import Adam
 import torchvision.transforms as T
 
 # import modules
-from models.cnn_basline import BaseLineCNN
-from pipelines.data_prep import data_prep
-from trainers.trainer import train_model
-from pipelines.patch_extraction import process_city
-from pipelines.patch_filtering import patch_filtering
+from deep_learning.models.cnn_basline import BaseLineCNN
+from deep_learning.pipelines.data_prep import data_prep
+from deep_learning.trainers.trainer import train_model
+from deep_learning.pipelines.patch_extraction import process_city
+from deep_learning.pipelines.patch_filtering import patch_filtering
 
 '''
 Settings
@@ -51,17 +52,18 @@ Patch filtering
 '''
 
 print(f"Filtering patches with threshold: {PATCH_THRESHOLD}")
-img_patches,mask_patches = patch_filtering(data_dir="data_patches",
+img_patches,mask_patches = patch_filtering(patches_dir="data_patches",
                                            threshold=PATCH_THRESHOLD)
 
 #print(f"{len(img_patches)} patches remaining after filtering")
 '''
 Data transformation
 '''
-train_transform = T.Compose([
-    T.RandomHorizontalFlip(p=0.5), #rotations on the tensors
-    T.RandomVerticalFlip(p=0.5)
-])
+train_transform = None
+# T.Compose([
+#    T.RandomHorizontalFlip(p=0.5), #rotations on the tensors
+ #   T.RandomVerticalFlip(p=0.5)
+#])
 
 val_transform = None #in case we need it later
 

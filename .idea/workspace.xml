@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="840bd5f8-270c-4a07-8de8-440a7cca040f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/deep_learning/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deep_learning/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deep_learning/models/UNetModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/models/UNetModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deep_learning/models/cnn_basline.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/models/cnn_basline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deep_learning/pipelines/data_prep.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/pipelines/data_prep.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deep_learning/pipelines/patch_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/pipelines/patch_extraction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deep_learning/pipelines/patch_filtering.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/pipelines/patch_filtering.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deep_learning/pipelines/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/pipelines/training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deep_learning/runner.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/runner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deep_learning/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deep_learning/trainers/trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/trainers/trainer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deep_learning/utils/io.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/utils/io.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="36i4t2aPX4dJH2UAxDjz5hN8RsR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.cnn_basline.executor&quot;: &quot;Run&quot;,
+    &quot;Python.patch_filtering.executor&quot;: &quot;Run&quot;,
+    &quot;Python.train.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/majaschmid/Documents/UNI/7Semester/Group3-MLProject&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/deep_learning" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-PY-252.28238.29" />
+        <option value="bundled-python-sdk-a101402ee41c-968fe969f28a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.28238.29" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="840bd5f8-270c-4a07-8de8-440a7cca040f" name="Changes" comment="" />
+      <created>1765476268960</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765476268960</updated>
+      <workItem from="1765476269991" duration="208000" />
+      <workItem from="1765491066206" duration="5584000" />
+      <workItem from="1765496854582" duration="5000" />
+      <workItem from="1765616813324" duration="3840000" />
+      <workItem from="1765623159711" duration="2000" />
+      <workItem from="1765623183138" duration="120000" />
+      <workItem from="1765623960681" duration="5168000" />
+      <workItem from="1765630074441" duration="5272000" />
+      <workItem from="1765662288347" duration="96000" />
+      <workItem from="1765662757885" duration="3270000" />
+      <workItem from="1765711483026" duration="3945000" />
+      <workItem from="1765730413487" duration="2171000" />
+      <workItem from="1765826458342" duration="3450000" />
+      <workItem from="1767717733318" duration="12821000" />
+      <workItem from="1767731107863" duration="292000" />
+      <workItem from="1767805784057" duration="8437000" />
+      <workItem from="1767821821470" duration="1908000" />
+      <workItem from="1767971629105" duration="2000" />
+      <workItem from="1768051857558" duration="217000" />
+      <workItem from="1768052087068" duration="7035000" />
+      <workItem from="1768060147101" duration="1167000" />
+      <workItem from="1768061346623" duration="11721000" />
+      <workItem from="1768082987224" duration="2749000" />
+      <workItem from="1768085778521" duration="729000" />
+      <workItem from="1768135848265" duration="11487000" />
+      <workItem from="1768239382429" duration="11840000" />
+      <workItem from="1768342731433" duration="2000" />
+      <workItem from="1768736541706" duration="3718000" />
+      <workItem from="1768744253048" duration="4001000" />
+      <workItem from="1768748289861" duration="2202000" />
+      <workItem from="1768751046341" duration="1250000" />
+      <workItem from="1768752309166" duration="7308000" />
+      <workItem from="1768763828867" duration="353000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Group3_MLProject$train.coverage" NAME="train Coverage Results" MODIFIED="1765631975730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Group3_MLProject$cnn_basline.coverage" NAME="cnn_basline Coverage Results" MODIFIED="1765716111517" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/deep_learning/models" />
+    <SUITE FILE_PATH="coverage/Group3_MLProject$patch_filtering.coverage" NAME="patch_filtering Coverage Results" MODIFIED="1767719352330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/deep_learning/pipelines" />
+  </component>
+</project>

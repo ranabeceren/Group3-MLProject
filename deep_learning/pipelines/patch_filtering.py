@@ -1,11 +1,10 @@
 import os
 import numpy as np
-from utils.patches import patch_selection
+from deep_learning.utils.patches import patch_selection
 
 #use patch_selection to delete the patches with less building coverage
 
 def patch_filtering(patches_dir, threshold):
-    # print("DEBUG: patch_filtering threshold: ", threshold)
 
     # Name of the current directory
     current_dir = os.path.dirname(os.path.abspath(__file__))

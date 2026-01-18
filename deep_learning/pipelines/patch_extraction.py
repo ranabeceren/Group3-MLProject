@@ -1,7 +1,7 @@
 import os
 import numpy as np
-from utils.io import load_sentinel_image, load_mask
-from utils.patching import make_patches
+from deep_learning.utils.io import load_sentinel_image, load_mask
+from deep_learning.utils.patches import make_patches
 
 # Iterates over the raw-data folder and saves all the patches as .npy arrays or directly as lists of arrays
 

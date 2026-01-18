@@ -5,19 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="840bd5f8-270c-4a07-8de8-440a7cca040f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/deep_learning/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/deep_learning/models/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/models/UNetModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/models/UNetModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/models/cnn_basline.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/models/cnn_basline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/pipelines/data_prep.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/pipelines/data_prep.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/pipelines/patch_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/pipelines/patch_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/pipelines/patch_filtering.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/pipelines/patch_filtering.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/pipelines/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/pipelines/training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/runner.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/runner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/trainers/trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/trainers/trainer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/utils/io.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/utils/io.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +101,7 @@
       <workItem from="1768748289861" duration="2202000" />
       <workItem from="1768751046341" duration="1250000" />
       <workItem from="1768752309166" duration="7308000" />
-      <workItem from="1768763828867" duration="353000" />
+      <workItem from="1768763828867" duration="698000" />
     </task>
     <servers />
   </component>

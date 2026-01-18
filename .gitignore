@@ -10,5 +10,3 @@ data/*
 deep_learning/data_patches/
 deep_learning/data_patches/
 
-# Local extraction script
-deep_learning/extracts.py

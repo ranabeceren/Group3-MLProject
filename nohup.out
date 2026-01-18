@@ -1,8 +1,0 @@
-Permission denied, please try again.
-Permission denied, please try again.
-smidmaja@gruenau7.informatik.hu-berlin.de: Permission denied (publickey,password).
-rsync(75395): error: unexpected end of file
-rsync(75395): error: io_read_nonblocking
-rsync(75395): error: io_read_buf
-rsync(75395): error: io_read_int
-rsync(75395): warning: child 75396 exited with status 255

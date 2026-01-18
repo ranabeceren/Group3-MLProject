@@ -6,14 +6,14 @@ from torch.optim import Adam
 import torchvision.transforms as T
 
 # import modules
-from .models.cnn_basline import BaseLineCNN
-from .pipelines.data_prep import data_prep
-from .trainers.trainer import train_model
-from .pipelines.patch_extraction import process_city
-from .pipelines.patch_filtering import patch_filtering
+from models.cnn_basline import BaseLineCNN
+from pipelines.data_prep import data_prep
+from trainers.trainer import train_model
+from pipelines.patch_extraction import process_city
+from pipelines.patch_filtering import patch_filtering
 
 '''
-Settings;
+Settings
 '''
 # paths to the data
 RAW_DIR = "data/raw"

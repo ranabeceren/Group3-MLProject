@@ -1,15 +1,14 @@
 import torch
 from torch import nn
-from metrics.dice_score import dice_score
 
-def train_stepV2(model: torch.nn.Module,
+def train_step(model: torch.nn.Module,
                data_loader: torch.utils.data.DataLoader,
                loss_fn: torch.nn.Module,
                optimizer: torch.optim.Optimizer,
-               dice,
+               accuracy_fn,
                device: torch.device):
 
-    train_loss, train_acc, train_dice = 0, 0, 0
+    train_loss, train_acc = 0, 0
     model.train()
 
     for batch, (X, y) in enumerate(data_loader):
@@ -29,38 +28,31 @@ def train_stepV2(model: torch.nn.Module,
         loss = loss_fn(y_logits, y)
         train_loss += loss
 
-        # Dice
-        dice = dice_score(y, y_pred).item()
-        train_dice += dice
-
-        """
         # Accuracy
-        train_acc += accuracy_fn(
-            y_true=y,
-            y_pred=y_pred)
-        """
+        accuracy = accuracy_fn(y_pred, y)
+        train_acc += accuracy
 
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
     train_loss /= len(data_loader)
-    train_dice /= len(data_loader)
-    # train_acc /= len(data_loader)
+    train_acc /= len(data_loader)
     
 
-    print(f"Train loss: {train_loss:.4f} | Dice Score: {train_dice:.2f}%")
+    print(f"Train loss: {train_loss:.2f} | Train accuracy: {train_acc:.2f}")
 
 
 def test_step(model: torch.nn.Module,
               data_loader: torch.utils.data.DataLoader,
               loss_fn: torch.nn.Module,
-              dice,
+              accuracy_fn,
+              scheduler,
               device: torch.device):
     
     """Performs a testing loop step on the model going over data_loader."""
     
-    test_loss, test_acc, test_dice = 0, 0, 0
+    test_loss, test_acc = 0, 0
 
     model.eval()
     with torch.inference_mode():
@@ -80,20 +72,17 @@ def test_step(model: torch.nn.Module,
             test_pred = torch.round(torch.sigmoid(test_logits)) 
 
             # Calculate loss & accuracy (per batch)
-            test_loss += loss_fn(test_logits, y_test)
-            test_dice += dice_score(y_test, test_pred).item()
-
-            """
-            test_acc += accuracy_fn(y_true=y_test,
-                                    y_pred=test_pred)
-            """
-        # Average test_loss & test_acc (per batch)
+            loss = loss_fn(test_logits, y_test)
+            test_loss += loss
+            accuracy = accuracy_fn(test_pred, y_test)
+            test_acc += accuracy
+            
+        # Average test_loss & test_acc & test dice(per batch)
         test_loss /= len(data_loader)
-        test_dice /= len(data_loader)
-        #test_acc /= len(data_loader)
-        
+        test_acc /= len(data_loader)
 
+        # reschedule lr by val_loss
+        scheduler.step(test_loss.item())
 
         # Print out what's happening
-
-        print(f"Test loss: {test_loss:.4f} | Dice Score: {test_dice:.2f}%")
+        print(f"Test loss: {test_loss:.2f} |Test accuracy: {test_acc:.2f}")

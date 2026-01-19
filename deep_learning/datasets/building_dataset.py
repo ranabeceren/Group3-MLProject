@@ -32,9 +32,12 @@ class BuildingDataset(Dataset):
 
         # transform image (aguments and ToTensor)
         if self.transform:
-            X, y = self.transform(X.unsqueeze(0), y.unsqueeze(0))
-            agumented = self.transform(image=X)
-            X = X.squeeze(0)
-            y = y.squeeze(0)
+            X_batch = X.unsqueeze(0)
+            y_batch = y.unsqueeze(0)
+
+            X_aug, y_aug = self.transform(X_batch, y_batch)
+
+            X = X_aug.squeeze(0)
+            y = y_aug.squeeze(0)
 
         return X, y

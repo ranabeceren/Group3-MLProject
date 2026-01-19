@@ -7,7 +7,7 @@ from torch.optim import Adam
 import torchvision.transforms as T
 
 # import modules
-from deep_learning.models.cnn_basline import BaseLineCNN
+from deep_learning.models.UNetModel import UNet
 from deep_learning.pipelines.data_prep import data_prep
 from deep_learning.trainers.trainer import train_model
 from deep_learning.pipelines.patch_extraction import process_city
@@ -83,7 +83,7 @@ print(f"Tain/Val/Test sizes: {len(train_loader.dataset)}, {len(test_loader.datas
 '''
 Model, Loss, Optimizer
 '''
-model = BaseLineCNN(in_channels=3).to(device)
+model = UNet(in_channels=4).to(device)
 loss_fn = nn.BCEWithLogitsLoss()
 optimizer = Adam(model.parameters(), lr=LR)
 

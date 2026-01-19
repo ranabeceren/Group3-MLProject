@@ -30,7 +30,8 @@ train_transform=None):
     train_transform = K.AugmentationSequential(
         K.RandomHorizontalFlip(p=0.5),
         K.RandomVerticalFlip(p=0.5),
-        K.RandomRotation(degrees=90.0),
+        K.RandomRotation(degrees=30.0, p=0.5),
+        K.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1, p=0.5),
         data_keys=["input", "mask"]
     )
     # Build dataset

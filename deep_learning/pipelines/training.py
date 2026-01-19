@@ -22,7 +22,7 @@ def training(
     # Choose loss_fn, optimizer and metrics
     pos_weight = compute_pos_weight(train_loader, device)
     loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight) 
-    optimizer = torch.optim.Adam(params=model.parameters(), lr=learning_rate)
+    optimizer = torch.optim.Adam(params=model.parameters(), lr=learning_rate, weight_decay=1e-4)
     accuracy_fn = BinaryAccuracy(threshold=0.5).to(device)
 
     # Reduce LR on plateau

@@ -3,14 +3,17 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class DoubleConv(nn.Module): # feature extraction without changing the size
-    def __init__(self, in_channels, out_channels):
+    def __init__(self, in_channels, out_channels, dropout_p=0.3):
         super().__init__()
 
         self.double_conv = nn.Sequential( # runs the layers one after the other
             nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1), # number of channels goes up
             nn.ReLU(inplace=True),
+            nn.Dropout2d(dropout_p),
+
             nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
-            nn.ReLU(inplace=True)
+            nn.ReLU(inplace=True),
+            nn.Dropout2d(dropout_p)
         )
 
     def forward(self, x): # runs through the two Conv-Layers

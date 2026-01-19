@@ -1,6 +1,6 @@
 import torch
 from torch.utils.data import Dataset
-
+import numpy as np
 
 class BuildingDataset(Dataset):
     """
@@ -27,11 +27,14 @@ class BuildingDataset(Dataset):
         X = torch.tensor(self.img_patches[idx], dtype=torch.float32)
         y = torch.tensor(self.mask_patches[idx], dtype=torch.float32)
 
-        # transform image (aguments and ToTensor)
-        if self.transform:
-            X  = self.transform(X)
-
         if y.ndim == 2:
             y = y.unsqueeze(0)
+
+        # transform image (aguments and ToTensor)
+        if self.transform:
+            X, y = self.transform(X.unsqueeze(0), y.unsqueeze(0))
+            agumented = self.transform(image=X)
+            X = X.squeeze(0)
+            y = y.squeeze(0)
 
         return X, y

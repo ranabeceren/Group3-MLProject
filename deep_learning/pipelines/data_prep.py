@@ -1,5 +1,7 @@
 import torch
 import numpy as np
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
 from deep_learning.datasets.building_dataset import BuildingDataset
 from torch.utils.data import DataLoader
 from deep_learning.utils.split import train_val_test_split
@@ -24,6 +26,16 @@ train_transform=None):
         val=val_split,
         seed=42
     )
+
+    # Data transformations
+    train_transform = A.Compose([
+        A.HorizontalFlip(p=0.5), # 50% horizontal mirroring
+        A.VerticalFlip(p=0.5), # 50% vertical mirroring
+        A.RandomRotate90(p=0.5), # rotations at 90 deg
+        A.RandomBrightnessContrast(p=0.5), #random changes in brightness & contrast
+        A.Normalize(mean=[0,0,0,0], std=[1,1,1,1]), # normalisatzion to 4 channels
+        ToTensorV2()
+    ])
     # Build dataset
     train_dataset = BuildingDataset(images=train_imgs, masks=train_masks, transform=train_transform) # if the caller passes a transform → only the training data is augmented if not behaves exactly like val/test
     val_dataset = BuildingDataset(images=val_imgs, masks=val_masks, transform=None)

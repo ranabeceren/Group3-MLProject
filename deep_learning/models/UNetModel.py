@@ -50,6 +50,7 @@ class Up(nn.Module): # Decoder
         return x
 
 
+
 class OutConv(nn.Module):
     def __init__(self, in_channels, out_channels):
         super().__init__()

@@ -56,16 +56,6 @@ img_patches,mask_patches = patch_filtering(patches_dir="data_patches",
                                            threshold=PATCH_THRESHOLD)
 
 #print(f"{len(img_patches)} patches remaining after filtering")
-'''
-Data transformation
-'''
-train_transform = None
-# T.Compose([
-#    T.RandomHorizontalFlip(p=0.5), #rotations on the tensors
- #   T.RandomVerticalFlip(p=0.5)
-#])
-
-val_transform = None #in case we need it later
 
 '''
 Data preparation

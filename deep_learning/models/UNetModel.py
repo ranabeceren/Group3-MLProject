@@ -82,7 +82,7 @@ class UNet(nn.Module):
         #x4 = self.down3(x3)
 
         x = self.up1(x3, x2) #decoding and skip connection
-        x = self.up3(x, x1)
+        x = self.up2(x, x1)
         # x = self.up4(x
 
         return self.outcome(x)

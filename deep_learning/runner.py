@@ -20,4 +20,4 @@ from .models.UNetModel import UNet
 model = UNet(in_channels=4, out_channels=1).to(device)
 
 from .pipelines.training import training
-training(train_loader, test_loader, val_loader, model=model, epochs=100, learning_rate=0.0003)
+training(train_loader, test_loader, val_loader, model=model, epochs=250, learning_rate=0.0003)

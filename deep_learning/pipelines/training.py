@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from deep_learning.trainers.trainerV2 import train_step, test_step
-from deep_learning.metrics.train_metrics import compute_pos_weight, print_train_time
+from deep_learning.metrics.train_metrics import compute_pos_weight, print_train_time, dice_score, iou_score
 from torchmetrics.classification import BinaryAccuracy
 from timeit import default_timer as timer
 from tqdm.auto import tqdm
@@ -11,7 +11,6 @@ def training(
     train_loader,
     test_loader,
     val_loader,
-
     model,
     epochs, 
     learning_rate):
@@ -24,6 +23,7 @@ def training(
     loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight) 
     optimizer = torch.optim.Adam(params=model.parameters(), lr=learning_rate, weight_decay=1e-4)
     accuracy_fn = BinaryAccuracy(threshold=0.5).to(device)
+
 
     # Reduce LR on plateau
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
@@ -53,6 +53,8 @@ def training(
                 loss_fn=loss_fn,
                 optimizer=optimizer,
                 accuracy_fn=accuracy_fn,
+                dice_fn=dice_score,
+                iou_fn=iou_score,
                 device=device)
         
         # Test data
@@ -60,6 +62,8 @@ def training(
                 data_loader=test_loader,
                 loss_fn=loss_fn,
                 accuracy_fn=accuracy_fn,
+                dice_fn=dice_score,
+                iou_fn=iou_score,
                 scheduler=scheduler,
                 device=device)
         

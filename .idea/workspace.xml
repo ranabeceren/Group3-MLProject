@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="840bd5f8-270c-4a07-8de8-440a7cca040f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/metrics/train_metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/metrics/train_metrics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/pipelines/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/pipelines/training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deep_learning/runner.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/runner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/deep_learning/trainers/trainerV2.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_learning/trainers/trainerV2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +105,7 @@
       <workItem from="1768763828867" duration="4742000" />
       <workItem from="1768839207960" duration="6000" />
       <workItem from="1768839965253" duration="11120000" />
-      <workItem from="1768941809756" duration="5195000" />
+      <workItem from="1768941809756" duration="6850000" />
     </task>
     <servers />
   </component>

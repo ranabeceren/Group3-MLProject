@@ -8,10 +8,9 @@ def train_step(model: torch.nn.Module,
                accuracy_fn,
                dice_fn,
                iou_fn,
-               f1_fn,
                device: torch.device):
 
-    train_loss, train_acc, train_dice, train_io, train_f1 = 0, 0, 0, 0
+    train_loss, train_acc, train_dice, train_io = 0, 0, 0, 0
     model.train()
 
     for batch, (X, y) in enumerate(data_loader):
@@ -37,7 +36,7 @@ def train_step(model: torch.nn.Module,
 
         # Dice Score
         dice = dice_fn(y_logits, y)
-        train_f1 += dice
+        train_dice += dice
 
         # IoU Score
         iou = iou_fn(y_logits, y)
@@ -67,7 +66,6 @@ def test_step(model: torch.nn.Module,
               accuracy_fn,
               dice_fn,
               iou_fn,
-              f1_fn,
               scheduler,
               device: torch.device):
     

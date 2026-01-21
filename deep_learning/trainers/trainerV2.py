@@ -56,7 +56,7 @@ def train_step(model: torch.nn.Module,
         f"Train loss: {train_loss:.2f} | "
         f"Train accuracy: {train_acc:.2f} | "
         f"Train dice: {train_dice:.2f} | "
-        f"Train IO: {train_io:.2f}"
+        f"Train IOU: {train_io:.2f}"
     )
 
 
@@ -116,5 +116,5 @@ def test_step(model: torch.nn.Module,
             f"Test loss: {test_loss:.2f} |"
             f"Test accuracy: {test_acc:.2f} |"
             f"Test dice: {test_dice:.2f} |"
-            f"Test IO: {test_io:.2f}"
+            f"Test IOU: {test_io:.2f}"
         )

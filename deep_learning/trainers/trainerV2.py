@@ -103,8 +103,8 @@ def test_step(model: torch.nn.Module,
             test_acc += accuracy
 
             # test dice & test iou
-            test_dice += dice_fn(y_test_bin, y_test)
-            test_io += iou_fn(y_test_bin, y_test)
+            test_dice += dice_fn(y_test_bin, test_pred)
+            test_io += iou_fn(y_test_bin, test_pred)
             
         # Average test_loss & test_acc & test dice(per batch)
         test_loss /= len(data_loader)

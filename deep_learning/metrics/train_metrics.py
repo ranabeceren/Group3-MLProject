@@ -18,9 +18,6 @@ def dice_score(y_true, y_pred, eps=1e-7):
     y_true = y_true.float()
     y_pred = y_pred.float()
 
-    print("DEBUG: y_true min/max:", y_true.min(), y_true.max())
-    print("DEBUG: y_pred min/max:", y_pred.min(), y_pred.max())
-
     intersection = (y_true * y_pred).sum(dim=(1,2,3))
     union = y_true.sum(dim=(1,2,3)) + y_pred.sum(dim=(1,2,3))
 
@@ -51,9 +48,6 @@ def print_train_time(start, end, device=None):
 def iou_score(y_true, y_pred, eps=1e-7):
     y_true = y_true.float()
     y_pred = y_pred.float()
-
-    print("DEBUG: y_true min/max:", y_true.min(), y_true.max())
-    print("DEBUG: y_pred min/max:", y_pred.min(), y_pred.max())
 
     intersection = (y_true * y_pred).sum(dim=(1,2,3))
     union = y_true.sum(dim=(1,2,3)) + y_pred.sum(dim=(1,2,3)) - intersection

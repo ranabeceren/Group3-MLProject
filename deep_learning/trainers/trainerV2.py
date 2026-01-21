@@ -26,20 +26,23 @@ def train_step(model: torch.nn.Module,
         y_logits = model(X)
         y_pred = torch.round(torch.sigmoid(y_logits)) # raw logits -> pred prob -> pred labels
 
+        # Maja tried smth here
+        y_pred_bin = (y > 0).float()
+
         # Loss
         loss = loss_fn(y_logits, y)
         train_loss += loss
 
         # Accuracy
-        accuracy = accuracy_fn(y_pred, y)
+        accuracy = accuracy_fn(y_pred, y_pred_bin)
         train_acc += accuracy
 
         # Dice Score
-        dice = dice_fn(y_logits, y)
+        dice = dice_fn(y_pred_bin, y_pred)
         train_dice += dice
 
         # IoU Score
-        iou = iou_fn(y_logits, y)
+        iou = iou_fn(y_pred_bin, y_pred)
         train_io += iou
 
         optimizer.zero_grad()

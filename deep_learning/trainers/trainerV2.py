@@ -25,9 +25,7 @@ def train_step(model: torch.nn.Module,
         # Forward pass
         y_logits = model(X)
         y_pred = torch.round(torch.sigmoid(y_logits)) # raw logits -> pred prob -> pred labels
-
-        # Maja tried smth here
-        y_pred_bin = (y > 0).float()
+        y_pred_bin = (y > 0).float() #ground truth labels
 
         # Loss
         loss = loss_fn(y_logits, y)

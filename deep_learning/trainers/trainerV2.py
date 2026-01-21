@@ -91,19 +91,20 @@ def test_step(model: torch.nn.Module,
 
             # Forward pass
             test_logits = model(X_test)
-            test_pred = torch.round(torch.sigmoid(test_logits)) 
+            test_pred = torch.round(torch.sigmoid(test_logits))
+            y_test_bin = (y_test > 0).float()
 
             # Calculate loss
             loss = loss_fn(test_logits, y_test)
             test_loss += loss
 
             # accuracy (per batch)
-            accuracy = accuracy_fn(test_pred, y_test)
+            accuracy = accuracy_fn(test_pred, y_test_bin)
             test_acc += accuracy
 
             # test dice & test iou
-            test_dice += dice_fn(test_logits, y_test)
-            test_io += iou_fn(test_logits, y_test)
+            test_dice += dice_fn(y_test_bin, y_test)
+            test_io += iou_fn(y_test_bin, y_test)
             
         # Average test_loss & test_acc & test dice(per batch)
         test_loss /= len(data_loader)

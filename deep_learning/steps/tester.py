@@ -45,12 +45,10 @@ def test_step(model: torch.nn.Module,
             accuracy = accuracy_fn(y_probs, y_true)
             test_acc += accuracy.item()
 
-
     test_loss /= len(data_loader)
     test_acc /= len(data_loader)
     test_iou /= len(data_loader)
     test_f1 /= len(data_loader)
-
 
     return {
         "model_name": model.__class__.__name__,

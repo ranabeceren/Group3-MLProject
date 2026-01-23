@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from steps.trainer import train_step, val_step
-from metrics.train_metrics import compute_pos_weight, print_train_timer
+from metrics.train_metrics import compute_pos_weight, print_train_time
 from torchmetrics.classification import BinaryAccuracy
 from timeit import default_timer as timer
 from tqdm.auto import tqdm
@@ -53,8 +53,6 @@ def training(
                 loss_fn=loss_fn,
                 optimizer=optimizer,
                 accuracy_fn=accuracy_fn,
-                dice_fn=dice_score,
-                iou_fn=iou_score,
                 device=device)
         
         # Validate data
@@ -63,8 +61,6 @@ def training(
                 data_loader=val_loader,
                 loss_fn=loss_fn,
                 accuracy_fn=accuracy_fn,
-                dice_fn=dice_score,
-                iou_fn=iou_score,
                 scheduler=scheduler,
                 device=device)
         

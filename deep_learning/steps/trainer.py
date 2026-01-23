@@ -8,11 +8,11 @@ def train_step(model: torch.nn.Module,
                loss_fn: torch.nn.Module,
                optimizer: torch.optim.Optimizer,
                accuracy_fn,
-               dice_fn,
-               iou_fn,
                device: torch.device):
 
-    train_loss, train_acc, train_dice, train_io = 0, 0, 0, 0
+    train_loss= 0.0
+    train_acc = 0.0
+
     model.train()
 
     for batch, (X, y) in enumerate(data_loader):
@@ -26,23 +26,14 @@ def train_step(model: torch.nn.Module,
         # Forward pass
         y_logits = model(X)
         y_pred = torch.round(torch.sigmoid(y_logits)) # raw logits -> pred prob -> pred labels
-        y_pred_bin = (y > 0).float() #ground truth labels
 
         # Loss
         loss = loss_fn(y_logits, y)
-        train_loss += loss
+        train_loss += loss.item()
 
         # Accuracy
-        accuracy = accuracy_fn(y_pred, y_pred_bin)
+        accuracy = accuracy_fn(y_pred, y)
         train_acc += accuracy
-
-        # Dice Score
-        dice = dice_fn(y_pred_bin, y_pred)
-        train_dice += dice
-
-        # IoU Score
-        iou = iou_fn(y_pred_bin, y_pred)
-        train_io += iou
 
         optimizer.zero_grad()
         loss.backward()
@@ -50,24 +41,16 @@ def train_step(model: torch.nn.Module,
 
     train_loss /= len(data_loader)
     train_acc /= len(data_loader)
-    train_dice /= len(data_loader)
-    train_io /= len(data_loader)
     
-
     print(
         f"Train loss: {train_loss:.2f} | "
         f"Train accuracy: {train_acc:.2f} | "
-        f"Train dice: {train_dice:.2f} | "
-        f"Train IOU: {train_io:.2f}"
     )
-
 
 def val_step(model: torch.nn.Module,
               data_loader: torch.utils.data.DataLoader,
               loss_fn: torch.nn.Module,
               accuracy_fn,
-              dice_fn,
-              iou_fn,
               scheduler,
               device: torch.device):
     
@@ -122,8 +105,10 @@ def val_step(model: torch.nn.Module,
 
         # reschedule lr by val_loss
         scheduler.step(val_loss)
-
+        
+    print(
         f"Validation loss: {val_loss:.2f} | "
         f"Validation acc: {val_acc:.2f} | "
         f"Validation IoU: {val_iou:.2f} | "
         f"Validation F1: {val_f1:.2f}"
+    )

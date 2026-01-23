@@ -20,9 +20,9 @@ conversion function and now ensure that the spatial extent is always in the
 correct format.
 """
 
-from sentinel.connection import get_connection
+from connection import get_connection
 #reuse the cached OpenEO connection!
-from sentinel.config import (
+from config import (
     S2_COLLECTION,
     BANDS, #default band list(RGB, NIR, SCL)
     DEFAULT_TEMPORAL_EXTENT,

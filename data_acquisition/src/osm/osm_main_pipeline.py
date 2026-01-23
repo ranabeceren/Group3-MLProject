@@ -34,7 +34,7 @@ def step1_download_osm():
 def step2_clean_osm():
     print("\n!!Cleaning OSM Data!!")
     for city in CITIES:
-        city_file = city.lower().replace(" ", "_")
+        city_file = city.lower().replace(' ', '_')
         input_path = f"data/osm/{city_file}.geojson" #step1 output
         gdf = load_buildings(input_path)
 
@@ -49,7 +49,7 @@ def step2_clean_osm():
 def step3_extract_bbox():
     print("\n!!Extracting Bounding Boxes!!")
     for city in CITIES:
-        city_file = city.lower().replace(" ", "_")
+        city_file = city.lower().replace(' ', '_')
         buildings_path = f"data/osm/{city_file}_buildings.geojson" #step1 output
         gdf = load_buildings(buildings_path)
 
@@ -64,7 +64,7 @@ def step3_extract_bbox():
 def step4_reproject_utm():
     print("\n!!Reprojecting Buildings to UTM!!")
     for city in CITIES:
-        city_file = city.lower().replace(" ", "_")
+        city_file = city.lower().replace(' ', '_')
         buildings_path = f"data/osm/{city_file}_buildings.geojson" #step1 output
         gdf = load_buildings(buildings_path)
 

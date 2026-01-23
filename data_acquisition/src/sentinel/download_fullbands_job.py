@@ -21,15 +21,15 @@ city, the steps are:
 8. Download the job results into the city's output directory.
 """
 
-from sentinel.connection import get_connection
+from connection import get_connection
 #reuse cached openeo connection
-from sentinel.downloader import load_bbox
+from downloader import load_bbox
 #reads <city>_bbox.json
-from sentinel.band_loader import load_sentinel_collection
+from band_loader import load_sentinel_collection
 #load sentinel2 cubes
-from sentinel.cloud_mask import apply_cloud_mask
-from sentinel.composites import reduce_to_median, create_full_band_cube
-from sentinel.bbox_utils import bbox_to_geojson_polygon
+from cloud_mask import apply_cloud_mask
+from composites import reduce_to_median, create_full_band_cube
+from bbox_utils import bbox_to_geojson_polygon
 
 import os
 

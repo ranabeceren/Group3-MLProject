@@ -1,0 +1,27 @@
+name: ml-env-py310
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - scipy
+  - matplotlib
+  - tqdm
+  - geopandas
+  - pyproj
+  - shapely
+  - rasterio
+  - pillow
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - intel-openmp
+  - tbb
+  - pip:
+      - pyrosm
+      - openeo
+      - torchmetrics

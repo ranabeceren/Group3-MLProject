@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from deep_learning.trainers.trainerV2 import train_step, test_step
-from deep_learning.metrics.train_metrics import compute_pos_weight, print_train_time, dice_score, iou_score
+from steps.trainer import train_step, val_step
+from metrics.train_metrics import compute_pos_weight, print_train_timer
 from torchmetrics.classification import BinaryAccuracy
 from timeit import default_timer as timer
 from tqdm.auto import tqdm
@@ -9,7 +9,6 @@ from tqdm.auto import tqdm
 
 def training(
     train_loader,
-    test_loader,
     val_loader,
     model,
     epochs, 
@@ -48,7 +47,8 @@ def training(
         print(f"Epoch: {epoch}\n---------")
 
         # Train data
-        train_step(model=model,
+        train_step(
+                model=model,
                 data_loader=train_loader,
                 loss_fn=loss_fn,
                 optimizer=optimizer,
@@ -57,9 +57,10 @@ def training(
                 iou_fn=iou_score,
                 device=device)
         
-        # Test data
-        test_step(model=model,
-                data_loader=test_loader,
+        # Validate data
+        val_step(
+                model=model,
+                data_loader=val_loader,
                 loss_fn=loss_fn,
                 accuracy_fn=accuracy_fn,
                 dice_fn=dice_score,

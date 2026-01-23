@@ -56,7 +56,7 @@ def download_osm_buildings():
           # OSM contains many features that we don't really need for this project
           # so with osm.get_buildings() we are keeping only polygons tagged as buildings
 
-            path = os.path.join(OUTPUT_DIR, f"{city.lower().replace(" ", "_")}.geojson")
+            path = os.path.join(OUTPUT_DIR, f"{city.lower().replace(' ', '_')}.geojson")
           # we are building the output file path, each city will be saved as its own GeoJSON file
           # city names will be in lowercase to ensure consistent file names
 

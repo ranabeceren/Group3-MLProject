@@ -13,7 +13,7 @@ manual input.
 """
 
 import openeo
-from sentinel.config import BACKEND_URL
+from config import BACKEND_URL
 
 _cached_connection = None
 #cache variable to store the connection object

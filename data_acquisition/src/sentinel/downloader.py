@@ -27,11 +27,11 @@ import numpy as np
 from PIL import Image
 
 
-from sentinel.connection import get_connection
-from sentinel.band_loader import load_sentinel_collection
-from sentinel.cloud_mask import apply_cloud_mask
-from sentinel.composites import reduce_to_median, create_rgb
-from sentinel.bbox_utils import bbox_to_geojson_polygon
+from connection import get_connection
+from band_loader import load_sentinel_collection
+from cloud_mask import apply_cloud_mask
+from composites import reduce_to_median, create_rgb
+from bbox_utils import bbox_to_geojson_polygon
 #internal modules handling connection, loading, masking, composites, bbox conversion
 
 def load_bbox(json_path):

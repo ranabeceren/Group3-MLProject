@@ -1,25 +1,24 @@
 import os
 import numpy as np
-from deep_learning.utils.patches import patch_selection
+from utils.patches import patch_selection
 
 #use patch_selection to delete the patches with less building coverage
 
 def patch_filtering(patches_dir, threshold):
 
-    # Name of the current directory
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-
-    # Name of the project directory
-    project_dir = os.path.abspath(os.path.join(current_dir, ("..")))
+    # Get absolute path to project root
+    BASE_DIR = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..", "..")
+    )
 
     # Build the data dir
-    data_dir = os.path.join(project_dir, patches_dir)
+    PATCHES_DIR = os.path.join(BASE_DIR, patches_dir)
 
     img_patches = []
     mask_patches = []
 
-    for city in os.listdir(data_dir):
-        city_path = os.path.join(data_dir, city)
+    for city in os.listdir(PATCHES_DIR):
+        city_path = os.path.join(PATCHES_DIR, city)
         if not os.path.isdir(city_path):
             continue
 

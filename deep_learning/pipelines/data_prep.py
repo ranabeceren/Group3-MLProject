@@ -1,18 +1,18 @@
 import torch
 import numpy as np
-import kornia.augmentation as K
-from deep_learning.datasets.building_dataset import BuildingDataset
+from datasets.building_dataset import BuildingDataset
 from torch.utils.data import DataLoader
-from deep_learning.utils.split import train_val_test_split
+from utils.split import train_val_test_split
 
 # splits the data into the sets and creates the dataset and dataloader which are then given to the trainer
 
-def data_prep(img_patches, 
-mask_patches, 
-train_split,
-val_split,
-batch_size, 
-train_transform=None):
+def data_prep(
+    img_patches, 
+    mask_patches,
+    batch_size, 
+    train_split,
+    val_split,
+    train_transform=None):
 
     # Get the data resulting from patch_filtering
     #img_patches, mask_patches = patch_filtering(data_dir="data_patches", threshold=threshold)

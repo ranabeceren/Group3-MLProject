@@ -1,16 +1,25 @@
-# Sentinel2 Building Prediction
-*Semester Group Project*
+# Semester Project: Satellite Data Analysis (Group Project)
 
-## Usage
-1. Load the data locally on your computer using data_acquisition pipeline.
-2. Create patches using `patch_extraction` pipeline. **Output:** `data_patches` folder.
-3. 
+This project trains deep learning models to predict **building masks** from **Sentinel‑2 image patches** using **OSM building footprints** as supervision.
 
 ## Running the pipeline
 
 All scripts are intended to be executed from the project root:
 
 ```bash
+
+The repository is organized into:
+- `data_acquisition/` — download Sentinel‑2 + OSM, generate masks
+- `deep_learning/` — patch pipeline + training/testing + experiments
+- `results/` — saved plots, overlays, and result tables
+- `environment-py310.yml` — reproducible environment
+
+---
+
+All scripts are intended to be executed from the project root (`Group3-MLProject/`):
+
+```bash
+python3 deep_learning/runner.py
 python deep_learning/runner.py
 
 All scripts are intended to be executed from the project root (`Group3-MLProject/`).

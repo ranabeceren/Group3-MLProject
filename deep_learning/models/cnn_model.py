@@ -1,14 +1,12 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
-class CNNBaselineModel(nn.Module):
-    def __init__(
-        self,
-        input_shape: int,
-        hidden_units: int,
-        output_shape: int
-    ):
+class CNN_Baseline(nn.Module):
+    def __init__(self, input_shape: int, hidden_units: int, output_shape: int ):
+
         super().__init__()
+
         self.conv_block_1 = nn.Sequential(
             nn.Conv2d(in_channels=input_shape, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
@@ -16,7 +14,7 @@ class CNNBaselineModel(nn.Module):
             nn.ReLU(),
             nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2)
+            nn.MaxPool2d(kernel_size=2) # 32 -> 16
         )
         
         self.conv_block_2 = nn.Sequential(
@@ -26,7 +24,7 @@ class CNNBaselineModel(nn.Module):
             nn.ReLU(),
             nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2)    
+            nn.MaxPool2d(kernel_size=2) # 16 -> 8
         )
 
         self.conv_block_3 = nn.Sequential(
@@ -36,169 +34,83 @@ class CNNBaselineModel(nn.Module):
             nn.ReLU(),
             nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2)    
+            nn.MaxPool2d(kernel_size=2) # 8 -> 4
         )
-        
-        self.upsample = nn.Upsample(
-            scale_factor=8,   # 32 → 128 (you upscale for the data to fit in the bcewithlogits loss imput shape)
-            mode="bilinear",
-            align_corners=False
-        )
-        
-        self.classifier = nn.Conv2d(
-            in_channels=hidden_units,
-            out_channels=output_shape, 
-            kernel_size=1
-            )
+        self.classifier = nn.Conv2d(in_channels=hidden_units, out_channels=output_shape, kernel_size=1)
         
     def forward(self, x):
-        input_size = x.shape[-2:]
-        x1 = self.conv_block_1(x)
-        # print(f"Output shape of conv_block_1: {x.shape}")
-
-        x2 = self.conv_block_2(x1)
-        # print(f"Output shape of conv_block_2: {x.shape}")
-
-        x3 = self.conv_block_3(x2)
-
-        # x4 = self.conv_block_4(x3)
-
-        # x5 = self.conv_block_5(x4)
-        """
-        x = self.upsample(x3)
-        # print(f"Output shape of unsample: {x.shape}")
-        """
-
-        x = torch.nn.functional.interpolate(
-            x3,
-            size=x1.shape[-2:],   # match x1 exactly
-            mode="bilinear",
-            align_corners=False
-            )
-
-        x = x + x1 # to skip connection
-
-        x = torch.nn.functional.interpolate(
-            x,
-            size=input_size,
-            mode="bilinear",
-            align_corners=False
-            )
-
+        
+        x = self.conv_block_1(x)
+        x = self.conv_block_2(x)
+        x = self.conv_block_3(x)
 
         x = self.classifier(x)
-        # print(f"Output shape of classifier: {x.shape}")
 
+        # Upsample it back to patch size
+        x = F.interpolate(x, size=(32,32), mode="bilinear", align_corners=False)
         return x
         
-class CNNBaselineModel(nn.Module):
-    def __init__(
-        self,
-        input_shape: int,
-        hidden_units: int,
-        output_shape: int
-    ):
+class CNN_SkipConnection(nn.Module):
+    def __init__(self, input_shape: int, hidden_units: int, output_shape: int):
+
         super().__init__()
-        self.conv_block_1 = nn.Sequential(
-            nn.Conv2d(in_channels=input_shape, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2)
-        )
-        
-        self.conv_block_2 = nn.Sequential(
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2)    
-        )
 
+        c1 = hidden_units # 32
+        c2 = c1 * 2       # 64
+        c3 = c2 * 2       # 128
+
+        self.conv_block_1 = nn.Sequential(
+            nn.Conv2d(in_channels=input_shape, out_channels=c1, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=c1, out_channels=c1, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=c1, out_channels=c1, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2) # 32 -> 16
+        )
+        self.conv_block_2 = nn.Sequential(
+            nn.Conv2d(in_channels=c1, out_channels=c2, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=c2, out_channels=c2, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=c2, out_channels=c2, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2) # 16 -> 8
+        )
         self.conv_block_3 = nn.Sequential(
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(in_channels=c2, out_channels=c3, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(in_channels=c3, out_channels=c3, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(in_channels=c3, out_channels=c3, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2)    
+            nn.MaxPool2d(kernel_size=2) # 8 -> 4
         )
-        '''
-        self.conv_block_4 = nn.Sequential(
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),  
-        )
-    
-        self.conv_block_5 = nn.Sequential(
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, stride=1, padding=1),
-            nn.ReLU(),  
-        )
-        '''
-        self.upsample = nn.Upsample(
-            scale_factor=8,   # 32 → 128 (you upscale for the data to fit in the bcewithlogits loss imput shape)
-            mode="bilinear",
-            align_corners=False
-        )
-        
-        self.classifier = nn.Conv2d(
-            in_channels=hidden_units,
-            out_channels=output_shape, 
-            kernel_size=1
-            )
+        self.skip_proj = nn.Conv2d(c1, c3, kernel_size=1)
+
+        self.classifier = nn.Conv2d(in_channels=c3, out_channels=output_shape, kernel_size=1)
         
     def forward(self, x):
-        input_size = x.shape[-2:]
+        
         x1 = self.conv_block_1(x)
-        # print(f"Output shape of conv_block_1: {x.shape}")
-
         x2 = self.conv_block_2(x1)
-        # print(f"Output shape of conv_block_2: {x.shape}")
-
         x3 = self.conv_block_3(x2)
 
-        # x4 = self.conv_block_4(x3)
+        # 1) Upsample deep features to match x1 spatial size (4x4 -> 16x16)
+        x3_up = F.interpolate(x3, size=x1.shape[-2:], mode="bilinear", align_corners=False)
 
-        # x5 = self.conv_block_5(x4)
-        """
-        x = self.upsample(x3)
-        # print(f"Output shape of unsample: {x.shape}")
-        """
+        # 2) Project skip so channels match (32 -> 128)
+        x1_proj = self.skip_proj(x1)  # (B, 128, 16, 16)
 
-        x = torch.nn.functional.interpolate(
-            x3,
-            size=x1.shape[-2:],   # match x1 exactly
-            mode="bilinear",
-            align_corners=False
-            )
+        # 3) Fuse (skip connection)
+        x_fused = x3_up + x1_proj
+        x_fused = F.relu(x_fused)     # helps after addition
 
-        x = x + x1 # to skip connection
+        # 4) Predict logits at 16x16, then upsample logits to input size
+        logits = self.classifier(x_fused)  # (B, 1, 16, 16)
+        logits = F.interpolate(logits, size=(32,32), mode="bilinear", align_corners=False)
 
-        x = torch.nn.functional.interpolate(
-            x,
-            size=input_size,
-            mode="bilinear",
-            align_corners=False
-            )
-
-
-        x = self.classifier(x)
-        # print(f"Output shape of classifier: {x.shape}")
-
-        return x
-        
+        return logits
 
 class BaseLineCNN(nn.Module): # almost everything in PyTorch inherits from nn.Module
     def __init__(self, in_channels=4, features=[32, 64, 128, 256]):

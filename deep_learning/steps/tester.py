@@ -38,11 +38,8 @@ def test_step(model: torch.nn.Module,
             test_iou += iou_score(y_pred, y_true).item()
             test_f1 += f1_score(y_pred, y_true).item()
 
-            # Preds: probabilities -> binary
-            y_probs = torch.sigmoid(y_logits)
-
             # accuracy (per batch)
-            accuracy = accuracy_fn(y_probs, y_true)
+            accuracy = accuracy_fn(y_pred, y_true)
             test_acc += accuracy.item()
 
     test_loss /= len(data_loader)
@@ -50,10 +47,4 @@ def test_step(model: torch.nn.Module,
     test_iou /= len(data_loader)
     test_f1 /= len(data_loader)
 
-    return {
-        "model_name": model.__class__.__name__,
-        "test_loss": test_loss,
-        "test_acc": test_acc,
-        "test_iou": test_iou,
-        "test_f1": test_f1,
-    }
+    return test_loss, test_acc, test_iou, test_f1

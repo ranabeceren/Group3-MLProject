@@ -6,65 +6,76 @@ from torchmetrics.classification import BinaryAccuracy
 from timeit import default_timer as timer
 from tqdm.auto import tqdm
 
+def training(train_loader, val_loader, model, epochs, learning_rate, device):
 
-def training(
-    train_loader,
-    val_loader,
-    model,
-    epochs, 
-    learning_rate):
+        # Choose loss_fn, optimizer and metrics
+        pos_weight = compute_pos_weight(train_loader, device)
+        loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight) 
+        optimizer = torch.optim.Adam(params=model.parameters(), lr=learning_rate, weight_decay=1e-4)
+        accuracy_fn = BinaryAccuracy(threshold=0.5).to(device)
 
-    # Use GPU if available
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+        # Reduce LR on plateau
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer,
+        mode="min",        # because we monitor val loss
+        factor=0.99,        # lr = lr * 0.99
+        patience=15,        # wait 15 epochs with no improvement
+        #verbose=True
+        )
 
-    # Choose loss_fn, optimizer and metrics
-    pos_weight = compute_pos_weight(train_loader, device)
-    loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight) 
-    optimizer = torch.optim.Adam(params=model.parameters(), lr=learning_rate, weight_decay=1e-4)
-    accuracy_fn = BinaryAccuracy(threshold=0.5).to(device)
+        history = {
+        "lr": [],
+        "train_loss": [],
+        "train_acc": [],
+        "val_loss": [],
+        "val_acc": [],
+        "val_iou": [],
+        "val_f1": []
+        }
 
+        # Measure time
+        start = timer()
 
-    # Reduce LR on plateau
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-    optimizer,
-    mode="min",        # because we monitor val loss
-    factor=0.99,        # lr = lr * 0.99
-    patience=15,        # wait 15 epochs with no improvement
-    #verbose=True
-    )
-    # Randomize for reproducability
-    RANDOM_SEED = 42
-    torch.manual_seed(RANDOM_SEED)
-    torch.cuda.manual_seed(RANDOM_SEED) # because our code runs on GPU
+        # Set epochs
+        epochs = epochs
 
-    # Measure time
-    start = timer()
+        for epoch in tqdm(range(epochs)): # wraps a progression bar around epochs
+                print(f"Epoch: {epoch+1}\n---------")
 
-    # Set epochs
-    epochs = epochs
+                # Train data
+                train_loss, train_acc = train_step(
+                        model=model,
+                        data_loader=train_loader,
+                        loss_fn=loss_fn,
+                        optimizer=optimizer,
+                        accuracy_fn=accuracy_fn,
+                        device=device)
 
-    for epoch in tqdm(range(epochs)): # wraps a progression bar around epochs
-        print(f"Epoch: {epoch}\n---------")
+                # Validate data
+                val_loss, val_acc, val_iou, val_f1 = val_step(
+                        model=model,
+                        data_loader=val_loader,
+                        loss_fn=loss_fn,
+                        accuracy_fn=accuracy_fn,
+                        scheduler=scheduler,
+                        device=device)
 
-        # Train data
-        train_step(
-                model=model,
-                data_loader=train_loader,
-                loss_fn=loss_fn,
-                optimizer=optimizer,
-                accuracy_fn=accuracy_fn,
-                device=device)
-        
-        # Validate data
-        val_step(
-                model=model,
-                data_loader=val_loader,
-                loss_fn=loss_fn,
-                accuracy_fn=accuracy_fn,
-                scheduler=scheduler,
-                device=device)
-        
-    end = timer()
-    train_time = print_train_time(start=start,
+                history["lr"].append(optimizer.param_groups[0]["lr"])
+                history["train_loss"].append(train_loss)
+                history["train_acc"].append(train_acc)
+                history["val_loss"].append(val_loss)
+                history["val_acc"].append(val_acc)
+                history["val_iou"].append(val_iou)
+                history["val_f1"].append(val_f1)
+
+                print(
+                        f"Train_loss={train_loss:.2f} Train_acc={train_acc:.2f} | \n"
+                        f"Val_loss={val_loss:.2f} Val_acc={val_acc:.2f} "
+                        f"Val_iou={val_iou:.2f} Val_f1={val_f1:.2f} | \n"
+                        f"LR={optimizer.param_groups[0]['lr']}\n"
+                )
+        end = timer()
+        train_time = print_train_time(start=start,
                                 end=end,
                                 device=device)
+        return history

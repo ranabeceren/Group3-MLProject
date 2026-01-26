@@ -16,7 +16,9 @@ def patch_filtering(patches_dir, threshold):
 
     img_patches = []
     mask_patches = []
-
+    print("\n_____________________________________\n")
+    print("!!PATCH FILTRATION STARTED!!")
+    print("_____________________________________\n")
     for city in os.listdir(PATCHES_DIR):
         city_path = os.path.join(PATCHES_DIR, city)
         if not os.path.isdir(city_path):
@@ -33,6 +35,7 @@ def patch_filtering(patches_dir, threshold):
 
         # Print out number of patches after selection
         print(f"{city}: after = {len(imgs)}")
+        print("------------------------")
 
         img_patches.append(imgs)
         mask_patches.append(masks)
@@ -44,6 +47,10 @@ def patch_filtering(patches_dir, threshold):
     # Print out total number of patches
     print(f"Total number of image patches: ", len(img_patches))
     print(f"Total number of mask patches: ", len(mask_patches))
+
+    print("\n_____________________________________\n")
+    print("!!PATCH FILTRATION COMPLETED!!")
+    print("_____________________________________")
 
     return img_patches, mask_patches
 

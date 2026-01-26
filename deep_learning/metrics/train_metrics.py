@@ -33,16 +33,6 @@ def compute_pos_weight(dataloader, device):
     pos_weight = neg / pos
     return pos_weight
 
-def dice_score(y_true, y_pred, eps=1e-7):
-    y_true = y_true.float()
-    y_pred = y_pred.float()
-
-    intersection = (y_true * y_pred).sum(dim=(1,2,3))
-    union = y_true.sum(dim=(1,2,3)) + y_pred.sum(dim=(1,2,3))
-
-    dice = (2 * intersection + eps) / (union + eps)
-    return dice.mean() * 100
-
 def f1_score(y_pred: torch.Tensor, y_true: torch.Tensor, eps: float = 1e-7) -> torch.Tensor:
     """
     F1 for binary masks (same as Dice).
@@ -86,27 +76,3 @@ def print_train_time(start, end, device=None):
     total_time = end - start
     print(f"\nTrain time on {device}: {total_time:.3f} seconds")
     return total_time
-
-
-def iou_score(y_true, y_pred, eps=1e-7):
-    y_true = y_true.float()
-    y_pred = y_pred.float()
-
-    intersection = (y_true * y_pred).sum(dim=(1,2,3))
-    union = y_true.sum(dim=(1,2,3)) + y_pred.sum(dim=(1,2,3)) - intersection
-
-    iou = (intersection + eps) / (union + eps)
-    return iou.mean() * 100
-
-'''
-def f1_score(y_true, y_pred, eps=1e-7):
-    y_true = y_true.float()
-    y_pred = y_pred.float()
-
-    tp = (y_true * y_pred).sum(dim=(1,2,3))
-    fp = (1 - y_true) * (1 - y_pred).sum(dim=(1,2,3))
-    fn = (y_true * (1 - y_pred)).sum(dim=(1,2,3))
-
-    f1 = (2 * tp + eps) / (2 * tp + fp + fn + eps)
-    return f1.mean() * 100
-'''

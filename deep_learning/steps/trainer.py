@@ -33,7 +33,7 @@ def train_step(model: torch.nn.Module,
 
         # Accuracy
         accuracy = accuracy_fn(y_pred, y)
-        train_acc += accuracy
+        train_acc += accuracy.item()
 
         optimizer.zero_grad()
         loss.backward()
@@ -41,11 +41,13 @@ def train_step(model: torch.nn.Module,
 
     train_loss /= len(data_loader)
     train_acc /= len(data_loader)
-    
+    '''
     print(
         f"Train loss: {train_loss:.2f} | "
         f"Train accuracy: {train_acc:.2f} | "
     )
+    '''
+    return train_loss, train_acc
 
 def val_step(model: torch.nn.Module,
               data_loader: torch.utils.data.DataLoader,
@@ -92,23 +94,23 @@ def val_step(model: torch.nn.Module,
             val_f1 += f1_score(y_pred, y_true).item()
 
             # Accuracy
-            y_probs = torch.sigmoid(y_logits)
-            acc = accuracy_fn(y_probs, y_true)
+            acc = accuracy_fn(y_pred, y_true)
             val_acc += acc.item()
 
-        # Average test_loss & test_acc & test dice(per batch)
-        val_loss /= len(data_loader)
-        val_acc /= len(data_loader)
-        val_iou /= len(data_loader)
-        val_f1 /= len(data_loader)
+    # Average test_loss & test_acc & test dice(per batch)
+    val_loss /= len(data_loader)
+    val_acc /= len(data_loader)
+    val_iou /= len(data_loader)
+    val_f1 /= len(data_loader)
 
-
-        # reschedule lr by val_loss
-        scheduler.step(val_loss)
-        
+    # reschedule lr by val_loss
+    scheduler.step(val_loss)
+    '''    
     print(
         f"Validation loss: {val_loss:.2f} | "
         f"Validation acc: {val_acc:.2f} | "
         f"Validation IoU: {val_iou:.2f} | "
         f"Validation F1: {val_f1:.2f}"
     )
+    '''
+    return val_loss, val_acc, val_iou, val_f1

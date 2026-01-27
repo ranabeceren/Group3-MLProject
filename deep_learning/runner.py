@@ -10,7 +10,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 RANDOM_SEED = 42
 torch.manual_seed(RANDOM_SEED)
 if torch.cuda.is_available():
-    torch.cuda.manual_seed(RANDOM_SEED) # because our code runs on GPU
+    torch.cuda.manual_seed(RANDOM_SEED) # runs on GPU
 
 # Directory for saving the results
 os.makedirs("results", exist_ok=True)
@@ -37,7 +37,7 @@ from pipelines.testing import testing
 
 all_results = []
 epochs = 150
-lr = 0.001
+lr = 0.0005
 
 # U-Net 
 from models.unet_model import UNet
@@ -54,12 +54,12 @@ all_results.append(model_results)
 
 visual_overlays(
     model=model,
-    data_loader=test_loader,          # or val_loader
+    data_loader=test_loader,
     device=device,
     save_dir=f"results/overlays_{model_name}",
     num_samples=10,
-    threshold=0.5,                    # change to 0.3 if that's your evaluation threshold
-    rgb_indices=(2, 1, 0)             # (B4,B3,B2) if channels are [B2,B3,B4,B8]
+    threshold=0.5,
+    rgb_indices=(2, 1, 0)
 )
 
 # Comparison table

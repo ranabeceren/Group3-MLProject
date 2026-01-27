@@ -12,7 +12,6 @@ def load_sentinel_image(path):
     """
     with rasterio.open(path) as src:
         img = src.read().astype(np.float32)
-    #img = img[:3, :, :]
     return img
 
     

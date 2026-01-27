@@ -17,10 +17,9 @@ def training(train_loader, val_loader, model, epochs, learning_rate, device):
         # Reduce LR on plateau
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
         optimizer,
-        mode="min",        # because we monitor val loss
-        factor=0.99,        # lr = lr * 0.99
-        patience=15,        # wait 15 epochs with no improvement
-        #verbose=True
+        mode="min",        
+        factor=0.7,        # lr = lr * 0.7
+        patience=10,        # wait 15 epochs with no improvement
         )
 
         history = {

@@ -41,12 +41,7 @@ def train_step(model: torch.nn.Module,
 
     train_loss /= len(data_loader)
     train_acc /= len(data_loader)
-    '''
-    print(
-        f"Train loss: {train_loss:.2f} | "
-        f"Train accuracy: {train_acc:.2f} | "
-    )
-    '''
+    
     return train_loss, train_acc
 
 def val_step(model: torch.nn.Module,
@@ -105,12 +100,5 @@ def val_step(model: torch.nn.Module,
 
     # reschedule lr by val_loss
     scheduler.step(val_loss)
-    '''    
-    print(
-        f"Validation loss: {val_loss:.2f} | "
-        f"Validation acc: {val_acc:.2f} | "
-        f"Validation IoU: {val_iou:.2f} | "
-        f"Validation F1: {val_f1:.2f}"
-    )
-    '''
+    
     return val_loss, val_acc, val_iou, val_f1

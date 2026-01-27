@@ -76,7 +76,7 @@ def visual_overlays(
     save_dir="results/overlays",
     num_samples=10,
     threshold=0.5,
-    rgb_indices=(2, 1, 0),  # change if your channel order differs
+    rgb_indices=(2, 1, 0), # channels are [B2,B3,B4,B8], used (2,1,0) = (B4,B3,B2).
 ):
     """
     Saves images showing:
@@ -85,7 +85,6 @@ def visual_overlays(
       3) Pred overlay on RGB
 
     rgb_indices: tuple of 3 channel indices to visualize as RGB.
-      Example if your channels are [B2,B3,B4,B8], use (2,1,0) = (B4,B3,B2).
     """
 
     os.makedirs(save_dir, exist_ok=True)

@@ -18,8 +18,8 @@ def training(train_loader, val_loader, model, epochs, learning_rate, device):
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
         optimizer,
         mode="min",        
-        factor=0.7,        # lr = lr * 0.7
-        patience=10,        # wait 15 epochs with no improvement
+        factor=0.99,        # lr = lr * 0.9
+        patience=10,        # wait 10 epochs with no improvement
         )
 
         history = {

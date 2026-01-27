@@ -1,2 +1,2 @@
 model_name,test_loss,test_acc,test_iou,test_f1
-UNet,0.4341,0.7809,0.6792,0.8044
+UNet,0.4329,0.7758,0.6726,0.8

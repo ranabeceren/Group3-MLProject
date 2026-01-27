@@ -69,7 +69,7 @@ all_results.append(model_results)
 
 # 3) U-Net 
 from models.unet_model import UNet
-lrs  = [0.0001, 0.0005, 0.001]
+lrs  = [0.0001, 0.0005, 0.008, 0.001]
 
 for lr in lrs:
     model_name = "UNet"

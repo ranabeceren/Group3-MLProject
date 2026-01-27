@@ -14,7 +14,7 @@ if torch.cuda.is_available():
 
 # Directory for saving the results
 os.makedirs("results", exist_ok=True)
-'''
+
 CITIES = [
     "amsterdam", "barcelona", "berlin", "brisbane",
     "cairo", "darmstadt", "lisbon", "madrid",
@@ -24,7 +24,7 @@ CITIES = [
 from pipelines.patch_extraction import process_city
 for city in tqdm(CITIES):
     process_city(city, patch_size=32)
-'''
+
 from pipelines.patch_filtering import patch_filtering
 img_patches, mask_patches = patch_filtering(patches_dir="data_patches", threshold=0.6)
 
@@ -37,7 +37,7 @@ from pipelines.testing import testing
 
 all_results = []
 epochs = 150
-lr = 0.0005
+lr = 0.0008
 
 # U-Net 
 from models.unet_model import UNet
